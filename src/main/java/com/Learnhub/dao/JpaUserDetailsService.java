@@ -41,4 +41,17 @@ public class JpaUserDetailsService implements UserDetailsService {
 		 user.setPassword(passwordEncoder.encode(user.getPassword()));
 		 userRepository.save(user);
 	 }
+     
+     @Transactional
+     public user getUser(String username) {
+		 
+    	 Supplier<UsernameNotFoundException> s = 
+    			 () -> new UsernameNotFoundException(
+    			 "Problem during authentication!");
+		 user u = userRepository
+		 .findUserByUsername(username) 
+		 .orElseThrow(s); 
+	 
+	     return u; 
+	 }
 }

@@ -26,8 +26,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.Learnhub.dao.studentDaoImpl;
 import com.Learnhub.dao.tutorDaoImpl;
 import com.Learnhub.entity.Course;
+import com.Learnhub.entity.Student;
 import com.Learnhub.entity.tasks;
 import com.Learnhub.storage.StorageFileNotFoundException;
 import com.Learnhub.storage.StorageService;
@@ -43,6 +45,9 @@ public class tutorController {
 	
 	
 	private final StorageService storageService;
+	
+	@Autowired
+	private studentDaoImpl studentDaoImpl;
 	
 	@Autowired
 	public tutorController(StorageService storageService) {
@@ -319,6 +324,23 @@ public class tutorController {
 	}
 	
 	//@GetMapping("/AddUser")
+	@GetMapping("/addCourseForStudent")
+	public String addCourseForStudent(Model model)
+	{
+		model.addAttribute("courses",tutorDao.getCourses());
+		
+		return "addcousrseforstudent.jsp";
+	}
 	
+	@PostMapping("/saveCouseforStudent")
+	public String saveCouseforStudent(@RequestParam("c_id") int course_id,@RequestParam("s_name") String student_email)
+	{
+		studentDaoImpl.addCourseforStudent(student_email,course_id);
+		
+		System.out.println(student_email);
+		System.out.println(course_id);
+		
+		return "redirect:/home";
+	}
 	
 }

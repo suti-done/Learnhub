@@ -45,11 +45,13 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/").access("permitAll")
 		.antMatchers("/register").access("permitAll")
 		.antMatchers("/saveUser").access("permitAll")
+		.antMatchers("/resetPassword").access("permitAll")
+		.antMatchers("/updateUser").access("permitAll")
 		.and()
         .formLogin().defaultSuccessUrl("/home")
         .permitAll()
         .and()
-		.logout().permitAll();
+		.logout().logoutSuccessUrl("/").permitAll();
 		
 		super.configure(http);
 	    http.csrf().disable();

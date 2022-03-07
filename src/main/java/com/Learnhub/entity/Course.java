@@ -6,11 +6,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -32,6 +34,13 @@ public class Course {
 	@JoinColumn(name="tutor_id")
 	private Tutor tutor; 
 	
+	@ManyToMany
+	@JoinTable(
+	  name = "course_student", 
+	  joinColumns = @JoinColumn(name = "course_id"), 
+	  inverseJoinColumns = @JoinColumn(name = "student_id"))
+	private List<Student> student; 
+	
 
 	@OneToMany(mappedBy="course",orphanRemoval = true,cascade = CascadeType.ALL)
 	private List<tasks> task;
@@ -42,6 +51,23 @@ public class Course {
 	}
 	
 	
+	public List<Student> getStudent() {
+		return student;
+	}
+
+
+	public void setStudent(List<Student> student) {
+		this.student = student;
+	}
+
+    public void addStudent(Student theStudent)
+    {
+    	if(student==null)
+    	{
+    		student=new ArrayList<Student>();
+    	}
+    	student.add(theStudent);
+    }
 	public Course(String name, Tutor tutor) {
 		
 		this.name = name;
