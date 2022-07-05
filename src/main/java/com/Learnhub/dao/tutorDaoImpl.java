@@ -12,10 +12,8 @@ import org.hibernate.query.Query;
 
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.config.Task;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,9 +39,23 @@ public class tutorDaoImpl implements tutorDao {
 	
 	
 	 @Autowired
-	 private UserRepository userRepository;;
+	 private UserRepository userRepository;
 	
-	@Override
+	 @Override
+	 @Transactional
+	 public Tutor getTutor(String email)
+	 {
+		 Session session=entityManager.unwrap(Session.class);
+			
+			Query<Tutor> query=session.createQuery("from Tutor where tutor_email=:n",Tutor.class);
+			query.setParameter("n",email); 
+			
+			Tutor tutor=query.getSingleResult();
+			
+			return tutor;
+			
+	 }
+	 @Override
 	@Transactional
 	public List<Course> getCourses() {
 		
@@ -280,6 +292,8 @@ public class tutorDaoImpl implements tutorDao {
 			
 		return names;
 	}
+	
+	
 	
 	
 	
