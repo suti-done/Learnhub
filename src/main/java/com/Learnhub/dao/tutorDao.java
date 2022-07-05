@@ -41,8 +41,11 @@ public interface tutorDao {
 
 	List<String> getSubmissions(tasks task);
 
+<<<<<<< HEAD
 	Tutor getTutor(String email);
 
+=======
+>>>>>>> 5503d92d84afc243ddae5bd0381926f53eea9def
 
 
 }

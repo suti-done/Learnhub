@@ -9,6 +9,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+<<<<<<< HEAD
+=======
+import com.Learnhub.dao.UserRepository;
+>>>>>>> 5503d92d84afc243ddae5bd0381926f53eea9def
 import com.Learnhub.dao.studentDaoImpl;
 import com.Learnhub.dao.tutorDaoImpl;
 import com.Learnhub.entity.Student;
@@ -24,7 +28,13 @@ public class HomeController {
 	
 	@Autowired
 	private studentDaoImpl studentDao;
+<<<<<<< HEAD
 
+=======
+	
+	@Autowired
+	private UserRepository userRepo;
+>>>>>>> 5503d92d84afc243ddae5bd0381926f53eea9def
 	
 	@RequestMapping("/")
 	public String firstpage()
@@ -67,6 +77,15 @@ public class HomeController {
 	{
 		return "home.jsp";
 	}
+<<<<<<< HEAD
+=======
+	@RequestMapping("/login")
+	public String homepage2()
+	{
+		System.out.println("test");
+		return "home.jsp";
+	}
+>>>>>>> 5503d92d84afc243ddae5bd0381926f53eea9def
 	@RequestMapping("/register")
 	public String register(Model model)
 	{
@@ -98,6 +117,7 @@ public class HomeController {
 	@RequestMapping("/resetPassword")
 	public String resetPassword(Model model)
 	{
+<<<<<<< HEAD
 		model.addAttribute("user",new UserHelper());
 		
 		
@@ -107,6 +127,23 @@ public class HomeController {
 	@PostMapping("/updateUser")
 	public String updateUser(@ModelAttribute("user") UserHelper userHelper)
 	{
+=======
+		System.out.println("reset");
+		model.addAttribute("user",new UserHelper());
+		
+		return "ResetPassword.jsp";
+	}
+	@PostMapping("/updateUser")
+	public String updateUser(@ModelAttribute("user") UserHelper userHelper)
+	{
+		System.out.println(userHelper.getPassword());
+		/*user user=new user();
+		 user.setUsername(userHelper.getUsername());
+		 user.setPassword(userHelper.getPassword());
+		
+		 //userRepo.save(user); */
+		
+>>>>>>> 5503d92d84afc243ddae5bd0381926f53eea9def
 		studentDao.updateUser(userHelper);
 		return "redirect:/";
 	}

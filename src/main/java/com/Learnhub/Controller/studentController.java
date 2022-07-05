@@ -56,6 +56,10 @@ public class studentController {
 		
 		theModel.addAttribute("course", new Course());
 		
+<<<<<<< HEAD
+=======
+		System.out.println("course");
+>>>>>>> 5503d92d84afc243ddae5bd0381926f53eea9def
 		return "courses.jsp";
 	}
 	
@@ -65,6 +69,10 @@ public class studentController {
 	@RequestMapping("/taskDetails")
 	public String taskDetails(@ModelAttribute("course") Course course, Model model)
 	{
+<<<<<<< HEAD
+=======
+	   System.out.println(course.getId()+"   is the id");
+>>>>>>> 5503d92d84afc243ddae5bd0381926f53eea9def
 	   Course theCourse=studentDaoImpl.getCourse(course);	
 	   List<tasks> task= theCourse.getTask();
 	   
@@ -74,6 +82,11 @@ public class studentController {
 	   model.addAttribute("course", course);
 	   
 	   model.addAttribute("task",new tasks());
+<<<<<<< HEAD
+=======
+	   
+	   System.out.println(task);
+>>>>>>> 5503d92d84afc243ddae5bd0381926f53eea9def
 	    
 		return "task_details.jsp";
 	}
@@ -84,14 +97,29 @@ public class studentController {
 	@RequestMapping("/materials")
 	public String showMaterials(@ModelAttribute("course") Course course,Model theModel,@ModelAttribute("task") tasks task)
 	{
+<<<<<<< HEAD
 		
 		
 		   tasks thetask = studentDaoImpl.getTask(task);
+=======
+		  
+		   //Course theCourse=tutorDao.getCourse(course);
+		   
+		   /*  task.setCourse(theCourse);
+		   System.out.println("course id "+theCourse.getId());
+		   */
+		tasks thetask = studentDaoImpl.getTask(task);
+		   System.out.println("task id "+task.getId());
+>>>>>>> 5503d92d84afc243ddae5bd0381926f53eea9def
 		   
 		   Course theCourse=studentDaoImpl.getCourse(thetask.getCourse());
 		   theModel.addAttribute("course",theCourse);
 		   theModel.addAttribute("task", thetask);
 		   
+<<<<<<< HEAD
+=======
+			//System.out.println("materials "+course.getId());
+>>>>>>> 5503d92d84afc243ddae5bd0381926f53eea9def
 			
 			theModel.addAttribute("files", storageService.loadAll("mat",task).map(path -> MvcUriComponentsBuilder
 																		.fromMethodName(studentController.class,"serveFileMAT", path.getFileName().toString())
@@ -134,7 +162,13 @@ public class studentController {
 	public String showSubmissions(@ModelAttribute("course") Course course,Model theModel,@ModelAttribute("task") tasks task)
 	{
 		  
+<<<<<<< HEAD
 		   tasks thetask = studentDaoImpl.getTask(task);
+=======
+		  tasks thetask = studentDaoImpl.getTask(task);
+		   System.out.println("task id "+task.getId());
+		   
+>>>>>>> 5503d92d84afc243ddae5bd0381926f53eea9def
 		   
 		   theModel.addAttribute("task", thetask);
 		   Course theCourse=studentDaoImpl.getCourse(thetask.getCourse());
@@ -155,8 +189,15 @@ public class studentController {
 	@PostMapping("/uploadSUB")
 	public String handleFileUploadSub(@RequestParam("file") MultipartFile file,RedirectAttributes redirectAttributes,@ModelAttribute("task") tasks task) {
 
+<<<<<<< HEAD
 		tasks tasks=studentDaoImpl.getTask(task);
 		storageService.subupload(file,tasks);
+=======
+		//@RequestParam("file") MultipartFile file,RedirectAttributes redirectAttributes
+		tasks tasks=studentDaoImpl.getTask(task);
+		storageService.subupload(file,tasks);
+		// redirectAttributes.addFlashAttribute("message","You successfully uploaded " + file.getOriginalFilename() + "!"); 
+>>>>>>> 5503d92d84afc243ddae5bd0381926f53eea9def
 		
 		Course theCourse=studentDaoImpl.getCourse(task.getCourse().getId());
 		   

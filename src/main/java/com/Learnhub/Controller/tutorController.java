@@ -314,6 +314,12 @@ public class tutorController {
 	{
 		studentDaoImpl.addCourseforStudent(student_email,course_id);
 		
+<<<<<<< HEAD
+=======
+		System.out.println(student_email);
+		System.out.println(course_id);
+		
+>>>>>>> 5503d92d84afc243ddae5bd0381926f53eea9def
 		return "redirect:/home";
 	}
 	
