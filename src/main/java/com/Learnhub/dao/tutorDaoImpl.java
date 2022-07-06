@@ -41,7 +41,21 @@ public class tutorDaoImpl implements tutorDao {
 	 @Autowired
 	 private UserRepository userRepository;
 	
-	@Override
+	 @Override
+	 @Transactional
+	 public Tutor getTutor(String email)
+	 {
+		 Session session=entityManager.unwrap(Session.class);
+			
+			Query<Tutor> query=session.createQuery("from Tutor where tutor_email=:n",Tutor.class);
+			query.setParameter("n",email); 
+			
+			Tutor tutor=query.getSingleResult();
+			
+			return tutor;
+			
+	 }
+	 @Override
 	@Transactional
 	public List<Course> getCourses() {
 		

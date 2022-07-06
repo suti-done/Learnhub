@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.Learnhub.entity.Course;
 import com.Learnhub.entity.Materials;
+import com.Learnhub.entity.Student;
 import com.Learnhub.entity.Submission;
 import com.Learnhub.entity.UserHelper;
 import com.Learnhub.entity.tasks;
@@ -32,5 +33,7 @@ public interface studentDao {
 	void updateUser(UserHelper userHelper);
 
 	void addCourseforStudent(String student_email, int course_id);
+
+	Student getStudent(String name);
 
 }

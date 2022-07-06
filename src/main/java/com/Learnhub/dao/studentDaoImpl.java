@@ -230,4 +230,17 @@ public class studentDaoImpl implements studentDao {
 		course.addStudent(theStudent);
 		
 	}
+ 
+	@Override
+	@Transactional
+	public Student getStudent(String name) {
+		Session session=entityManager.unwrap(Session.class);
+		
+		Query<Student> query=session.createQuery("from Student where student_email=:n",Student.class);
+		query.setParameter("n",name); 
+		
+		Student student=query.getSingleResult();
+		
+		return student;
+	}
 }

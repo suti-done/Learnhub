@@ -6,6 +6,7 @@ import java.util.List;
 import com.Learnhub.entity.Course;
 import com.Learnhub.entity.Materials;
 import com.Learnhub.entity.Submission;
+import com.Learnhub.entity.Tutor;
 import com.Learnhub.entity.UserHelper;
 import com.Learnhub.entity.tasks;
 
@@ -39,6 +40,8 @@ public interface tutorDao {
 	List<String> getMaterials(tasks task);
 
 	List<String> getSubmissions(tasks task);
+
+	Tutor getTutor(String email);
 
 
 

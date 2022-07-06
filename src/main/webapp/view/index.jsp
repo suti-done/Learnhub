@@ -48,7 +48,7 @@
 	  </div>
 	</nav>
 	
-   
+<div style="background-color:LightGray;padding: 00px 00px 300px 00px">   
     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -71,7 +71,7 @@
       </div>
     </div>
     <div class="carousel-item">
-      <img src="1.jpg"" class="d-block w-100" alt="...">
+      <img src="https://source.unsplash.com/random/1200x300/?learning"" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
         <h5>Welcome to Learnhub</h5>
         <p>The best place for tutor and student to exchange knowledge</p>
@@ -115,6 +115,6 @@
         
         
          </div>
-
+</div>
 </body>
 </html>

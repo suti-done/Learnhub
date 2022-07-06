@@ -9,8 +9,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -86,12 +84,11 @@ public class tutorController {
 				 course=new Course();
 		}
 		else{
-		   System.out.println("course id"+course.getId());
+		   
             Course theCourse=tutorDao.getCourse(course);
             course=theCourse;
 		}
 	    theModel.addAttribute("course", course);
-		System.out.println("coursecreate");
 		return "CreateCourse.jsp";
 	}
   
@@ -109,29 +106,23 @@ public class tutorController {
 	{
 	   
 		
-		   System.out.println("course id"+course.getId());
-           Course theCourse=tutorDao.getCourse(course);
-           tutorDao.deleteCourse(theCourse);
+       Course theCourse=tutorDao.getCourse(course);
+       tutorDao.deleteCourse(theCourse);
 		
 	    
-		System.out.println("coursedelete");
 		return "redirect:/tutor/courses" ;
 	}
 	@RequestMapping("/taskDetails")
 	public String taskDetails(@ModelAttribute("course") Course course, Model model)
 	{
-	   System.out.println(course.getId()+"   is the id");
 	   Course theCourse=tutorDao.getCourse(course);	
 	   List<tasks> task= theCourse.getTask();
 	   
 	   model.addAttribute("tasks",task);
 	   
-	   
 	   model.addAttribute("course", course);
 	   
 	   model.addAttribute("task",new tasks());
-	   
-	   System.out.println(task);
 	    
 		return "task_details.jsp";
 	}
@@ -143,7 +134,6 @@ public class tutorController {
 	   Course theCourse=tutorDao.getCourse(course);
 	   
 	   task.setCourse(theCourse);
-	   System.out.println("course id "+theCourse.getId());
 	   long millis=System.currentTimeMillis();  
        Date on_date=new Date(millis); 
        task.setOn_date(on_date);
@@ -151,14 +141,12 @@ public class tutorController {
 	   
 	   theModel.addAttribute("task", task);
 	   
-		System.out.println("create task"+course.getId());
 		return "CreateTask.jsp";
 	}
 	@PostMapping("/saveTask")
 	public String SaveTask(@ModelAttribute("task") tasks task,RedirectAttributes redirectAttributes)
 	{
 
-		System.out.println("create task   "+task.getCourse().getId());
 		task.setCourse(tutorDao.getCourse(task.getCourse().getId()));
 		tutorDao.saveTask(task);
 		
@@ -172,7 +160,6 @@ public class tutorController {
 	public String handleFileUploadMat(@RequestParam("file") MultipartFile file,RedirectAttributes redirectAttributes,@ModelAttribute("task") tasks task) {
 
 		//@RequestParam("file") MultipartFile file,RedirectAttributes redirectAttributes
-		System.out.println("task id is " + task.getId());
 		tasks tasks=tutorDao.getTask(task);
 		storageService.matupload(file,tasks);
 		/* if(!file.isEmpty())
@@ -195,11 +182,7 @@ public class tutorController {
 	public String showMaterials(@ModelAttribute("course") Course course,Model theModel,@ModelAttribute("task") tasks task)
 	{
 		  
-		   //Course theCourse=tutorDao.getCourse(course);
 		   
-		   /*  task.setCourse(theCourse);
-		   System.out.println("course id "+theCourse.getId());
-		   */
 		tasks thetask = tutorDao.getTask(task);
 		   System.out.println("task id "+task.getId());
 		   
@@ -207,7 +190,6 @@ public class tutorController {
 		   theModel.addAttribute("course",theCourse);
 		   theModel.addAttribute("task", thetask);
 		   
-			//System.out.println("materials "+course.getId());
 			
 			theModel.addAttribute("files", storageService.loadAll("mat",task).map(path -> MvcUriComponentsBuilder
 																		.fromMethodName(tutorController.class,"serveFileMAT", path.getFileName().toString())
@@ -251,7 +233,6 @@ public class tutorController {
 	{
 		  
 		  tasks thetask = tutorDao.getTask(task);
-		   System.out.println("task id "+task.getId());
 		   
 		   
 		   theModel.addAttribute("task", thetask);
@@ -273,10 +254,8 @@ public class tutorController {
 	@PostMapping("/uploadSUB")
 	public String handleFileUploadSub(@RequestParam("file") MultipartFile file,RedirectAttributes redirectAttributes,@ModelAttribute("task") tasks task) {
 
-		//@RequestParam("file") MultipartFile file,RedirectAttributes redirectAttributes
 		tasks tasks=tutorDao.getTask(task);
 		storageService.subupload(file,tasks);
-		// redirectAttributes.addFlashAttribute("message","You successfully uploaded " + file.getOriginalFilename() + "!"); 
 		
 		Course theCourse=tutorDao.getCourse(task.getCourse().getId());
 		   
@@ -300,8 +279,6 @@ public class tutorController {
 	        task.setOn_date(on_date);
        }
 	   
-	   System.out.println("task id "+task.getId());
-	   
 	   theModel.addAttribute("task",theTask);
 	   
 	    return "CreateTask.jsp";
@@ -311,8 +288,6 @@ public class tutorController {
 	@PostMapping("/taskDelete")
 	public String deleteTask(@ModelAttribute("task") tasks task,RedirectAttributes redirectAttributes)
 	{
-
-		System.out.println("create task   "+task.getId());
 		
 		Course theCourse=tutorDao.getCourse(tutorDao.getTask(task).getCourse().getId());
 		
@@ -336,9 +311,6 @@ public class tutorController {
 	public String saveCouseforStudent(@RequestParam("c_id") int course_id,@RequestParam("s_name") String student_email)
 	{
 		studentDaoImpl.addCourseforStudent(student_email,course_id);
-		
-		System.out.println(student_email);
-		System.out.println(course_id);
 		
 		return "redirect:/home";
 	}

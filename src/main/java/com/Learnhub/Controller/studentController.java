@@ -56,7 +56,6 @@ public class studentController {
 		
 		theModel.addAttribute("course", new Course());
 		
-		System.out.println("course");
 		return "courses.jsp";
 	}
 	
@@ -66,7 +65,6 @@ public class studentController {
 	@RequestMapping("/taskDetails")
 	public String taskDetails(@ModelAttribute("course") Course course, Model model)
 	{
-	   System.out.println(course.getId()+"   is the id");
 	   Course theCourse=studentDaoImpl.getCourse(course);	
 	   List<tasks> task= theCourse.getTask();
 	   
@@ -76,8 +74,6 @@ public class studentController {
 	   model.addAttribute("course", course);
 	   
 	   model.addAttribute("task",new tasks());
-	   
-	   System.out.println(task);
 	    
 		return "task_details.jsp";
 	}
@@ -88,20 +84,14 @@ public class studentController {
 	@RequestMapping("/materials")
 	public String showMaterials(@ModelAttribute("course") Course course,Model theModel,@ModelAttribute("task") tasks task)
 	{
-		  
-		   //Course theCourse=tutorDao.getCourse(course);
-		   
-		   /*  task.setCourse(theCourse);
-		   System.out.println("course id "+theCourse.getId());
-		   */
-		tasks thetask = studentDaoImpl.getTask(task);
-		   System.out.println("task id "+task.getId());
+		
+		
+		   tasks thetask = studentDaoImpl.getTask(task);
 		   
 		   Course theCourse=studentDaoImpl.getCourse(thetask.getCourse());
 		   theModel.addAttribute("course",theCourse);
 		   theModel.addAttribute("task", thetask);
 		   
-			//System.out.println("materials "+course.getId());
 			
 			theModel.addAttribute("files", storageService.loadAll("mat",task).map(path -> MvcUriComponentsBuilder
 																		.fromMethodName(studentController.class,"serveFileMAT", path.getFileName().toString())
@@ -144,9 +134,7 @@ public class studentController {
 	public String showSubmissions(@ModelAttribute("course") Course course,Model theModel,@ModelAttribute("task") tasks task)
 	{
 		  
-		  tasks thetask = studentDaoImpl.getTask(task);
-		   System.out.println("task id "+task.getId());
-		   
+		   tasks thetask = studentDaoImpl.getTask(task);
 		   
 		   theModel.addAttribute("task", thetask);
 		   Course theCourse=studentDaoImpl.getCourse(thetask.getCourse());
@@ -167,10 +155,8 @@ public class studentController {
 	@PostMapping("/uploadSUB")
 	public String handleFileUploadSub(@RequestParam("file") MultipartFile file,RedirectAttributes redirectAttributes,@ModelAttribute("task") tasks task) {
 
-		//@RequestParam("file") MultipartFile file,RedirectAttributes redirectAttributes
 		tasks tasks=studentDaoImpl.getTask(task);
 		storageService.subupload(file,tasks);
-		// redirectAttributes.addFlashAttribute("message","You successfully uploaded " + file.getOriginalFilename() + "!"); 
 		
 		Course theCourse=studentDaoImpl.getCourse(task.getCourse().getId());
 		   
