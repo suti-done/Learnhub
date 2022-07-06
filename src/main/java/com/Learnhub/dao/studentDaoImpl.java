@@ -230,7 +230,6 @@ public class studentDaoImpl implements studentDao {
 		course.addStudent(theStudent);
 		
 	}
-<<<<<<< HEAD
  
 	@Override
 	@Transactional
@@ -244,6 +243,4 @@ public class studentDaoImpl implements studentDao {
 		
 		return student;
 	}
-=======
->>>>>>> 5503d92d84afc243ddae5bd0381926f53eea9def
 }

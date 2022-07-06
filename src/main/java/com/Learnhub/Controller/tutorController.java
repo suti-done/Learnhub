@@ -9,8 +9,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -314,12 +312,6 @@ public class tutorController {
 	{
 		studentDaoImpl.addCourseforStudent(student_email,course_id);
 		
-<<<<<<< HEAD
-=======
-		System.out.println(student_email);
-		System.out.println(course_id);
-		
->>>>>>> 5503d92d84afc243ddae5bd0381926f53eea9def
 		return "redirect:/home";
 	}
 	
